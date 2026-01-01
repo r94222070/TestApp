@@ -1,0 +1,10 @@
+# 忽略 Python 虛擬環境
+venv/
+.venv/
+
+# 忽略 PyCharm 的設定資料夾
+.idea/
+
+# 忽略 Python 編譯暫存
+__pycache__/
+*.pyc
