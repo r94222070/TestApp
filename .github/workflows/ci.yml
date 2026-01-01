@@ -1,0 +1,19 @@
+name: Python CI Check         # 流程名稱
+
+on: [push]                    # 只要 push 程式碼就觸發
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest    # 在 GitHub 提供的雲端 Linux 上執行
+
+    steps:
+      - name: 複製程式碼          # 步驟 1：把你的程式碼下載到雲端機器
+        uses: actions/checkout@v4
+
+      - name: 設定 Python 版本    # 步驟 2：在雲端安裝 Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: 執行測試           # 步驟 3：跑你的測試程式
+        run: python -u test_main.py
