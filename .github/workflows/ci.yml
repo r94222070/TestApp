@@ -29,3 +29,20 @@ jobs:
 
       - name: 執行測試           # 步驟 3：跑你的測試程式
         run: python test_main.py #add -u
+
+      - name: 更新 README 時間
+        if: success() # 只有在前面測試都通過的情況下才執行
+        run: |
+          # 取得目前時間 (台灣時間 +8)
+          DATE=$(date -d "+8 hours" "+%Y-%m-%d %H:%M:%S")
+          # 使用 sed 取代 README 裡的文字
+          sed -i "s/最後自動更新時間：.*/最後自動更新時間：$DATE (台北)/" README.md
+          
+          # 設定 Git 使用者資訊以便提交
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # 提交並推回 GitHub
+          git add README.md
+          git commit -m "docs: auto-update README timestamp [skip ci]"
+          git push
